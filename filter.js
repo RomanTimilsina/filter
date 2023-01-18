@@ -46,6 +46,8 @@ const data = [
 
 const productsContainer = document.querySelector('.products');
 const search = document.querySelector('.search');
+const categoryContainer = document.querySelector('.cats');
+
 
 
 const displayProducts = (filterProducts) => {
@@ -70,6 +72,36 @@ search.addEventListener('keyup', (e) => {
   const filteredCatProducts = data.filter((product) =>  product.name.toLowerCase().includes(e.target.value.toLowerCase()) === true)
   displayProducts(filteredCatProducts)
 })
+
+const category_func = () => {
+  const categories =[... new Set(data.map(item => item.cat))]
+ 
+  categoryContainer.innerHTML = categories.map((c,i) => 
+
+      `${ i === 0 ?(`<div class="cat">All</div><div class="cat">${c}</div>`):`<div class="cat">${c}</div>`}`
+
+    ).join('')
+
+    
+}
+category_func()
+
+
+
+
+  categoryContainer.addEventListener('click', (e) => {
+    
+    e.target.innerText === 'All' ? 
+    
+    displayProducts(data) 
+    :
+     displayProducts( data.filter(item => item.cat === e.target.innerText)) 
+    
+    
+  })
+
+
+
 
 
 
