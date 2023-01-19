@@ -47,6 +47,8 @@ const data = [
 const productsContainer = document.querySelector('.products');
 const search = document.querySelector('.search');
 const categoryContainer = document.querySelector('.cats');
+const priceRange = document.querySelector('.priceRange');
+const priceValue = document.querySelector('.priceValue');
 
 
 
@@ -95,14 +97,28 @@ category_func()
     
     displayProducts(data) 
     :
-     displayProducts( data.filter(item => item.cat === e.target.innerText)) 
+     displayProducts( data.filter(item => item.cat === e.target.innerText )) 
     
     
   })
 
+const setPrices = () => {
+  const PriceList = data.map(item => item.price)
+  const maxPrice = Math.max(...PriceList)
+  const minPrice = Math.min(...PriceList)
+  priceRange.setAttribute('min', minPrice)
+  priceRange.setAttribute('max', maxPrice)
+  priceValue.innerText = maxPrice
+  console.log(priceRange)
+}
 
+setPrices()
 
-
-
+priceRange.addEventListener('change', (e) => {
+  const priceFilter = data.filter(item => {
+  return item.price <= e.target.value
+  })
+  displayProducts(priceFilter)
+})
 
 
