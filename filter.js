@@ -108,13 +108,15 @@ const setPrices = () => {
   const minPrice = Math.min(...PriceList)
   priceRange.setAttribute('min', minPrice)
   priceRange.setAttribute('max', maxPrice)
-  priceValue.innerText = maxPrice
+  priceValue.innerText = '$'+maxPrice
+  priceValue.style.margin = '10px'
   console.log(priceRange)
 }
 
 setPrices()
 
-priceRange.addEventListener('change', (e) => {
+priceRange.addEventListener('input', (e) => {
+  priceValue.innerText = '$'+ e.target.value
   const priceFilter = data.filter(item => {
   return item.price <= e.target.value
   })
